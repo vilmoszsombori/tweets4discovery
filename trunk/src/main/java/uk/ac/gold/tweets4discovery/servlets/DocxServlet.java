@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -18,22 +19,30 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.CTBorder;
 import org.docx4j.wml.ObjectFactory;
+import org.docx4j.wml.R;
 import org.docx4j.wml.STBorder;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.TblBorders;
 import org.docx4j.wml.TblPr;
+import org.docx4j.wml.TblWidth;
 import org.docx4j.wml.Tc;
+import org.docx4j.wml.TcPr;
+import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
+import org.docx4j.wml.P;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.Status;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 
 import com.google.gson.Gson;
 
 /**
  * Servlet implementation class DocxServlet
+ * @param <P>
  */
 //@WebServlet("/json")
 public class DocxServlet extends HttpServlet {       
@@ -83,50 +92,72 @@ public class DocxServlet extends HttpServlet {
         		directory.mkdir();
         	}
         	
-			//WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage();
+			factory = Context.getWmlObjectFactory();
 			wordMLPackage = WordprocessingMLPackage.createPackage();
-			
-			
+						
 			wordMLPackage.getMainDocumentPart().addStyledParagraphOfText("Title", "Tweets 4 Discovery");
 			wordMLPackage.getMainDocumentPart().addStyledParagraphOfText("Subtitle", "by Vilmos and Michel");
+			/*
+			P p = factory.createP();
+			R r = factory.createR();
+			
+			Text text = factory.createText();
+			text.setValue("Query: " + queryString);
+			r.getContent().add(text);
+			
+			r.getContent().add(factory.createBr());
+			
+			text = factory.createText();
+			text.setValue("Since: " + since);
+			r.getContent().add(text);
+			
+			r.getContent().add(factory.createBr());
+			
+			text = factory.createText();
+			text.setValue("Until: " + until);
+			r.getContent().add(text);
+			*/
+									
 			wordMLPackage.getMainDocumentPart().addParagraphOfText("Query: " + queryString);
 			wordMLPackage.getMainDocumentPart().addParagraphOfText("Since: " + since);
 			wordMLPackage.getMainDocumentPart().addParagraphOfText("Until: " + until);
 			
-			factory = Context.getWmlObjectFactory();
-			Tbl table = createTableWithContent();
-			
-			addBorders(table);
-			wordMLPackage.getMainDocumentPart().addObject(table);
-			
-			wordMLPackage.save(new java.io.File(rootPath + "/HelloWord2.docx"));
-			
+			//r.getContent().add(p);
+			//wordMLPackage.getMainDocumentPart().addObject(r);
+						
+	        Tbl table = factory.createTbl();
+						
 			Twitter twitter = new TwitterFactory().getInstance();
 			Query query = new Query(queryString);
 			query.setSince(since);
 			query.setUntil(until);
 			QueryResult result;
-			/*
-			List<Status> _tweets = new Vector<Status>();
+
 			do {
-				result = twitter.search(query);
-				_tweets.addAll(result.getTweets());
+		        result = twitter.search(query);
 				List<Status> tweets = result.getTweets();
 				for (Status tweet : tweets) {
-					System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-				}
+			        Tr tr = factory.createTr();				   	 			        
+			        addTableCell(tr, "@" + tweet.getUser().getScreenName());
+			        addTableCell(tr, tweet.getUser().getName());
+			        addTableCellWithWidth(tr, tweet.getText(), 4500);
+			        addTableCell(tr, tweet.getCreatedAt().toString());
+					//System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+			        table.getContent().add(tr);			
+				}				
 			} while ((query = result.nextQuery()) != null);
+
+			addBorders(table);
+			wordMLPackage.getMainDocumentPart().addObject(table);
 			
-			if ( !_tweets.isEmpty() ) {
-				jsonResp.put("tweets", _tweets);
-				status = "successful";
-			} else {
-				throw new Exception("No results for query [" + queryString + "].");
-			}
+			wordMLPackage.save(new java.io.File(rootPath + "/HelloWord2.docx"));
+			
+			jsonResp.put("docx", "HelloWord2.docx");			
+			status = "successful";
+			
 		} catch (TwitterException e) {
-			jsonResp.put("exception", "Twitter exception. " + e.getMessage());
+			jsonResp.put("exception", "TwitterException: " + e.getMessage());
 			e.printStackTrace();
-			*/			
 		} catch (Docx4JException e) {
 			jsonResp.put("exception", "Docx4JException: " + e.getMessage());
 			e.printStackTrace();
@@ -156,6 +187,9 @@ public class DocxServlet extends HttpServlet {
 		System.setProperty("tweets4discovery.rootPath", prefix);
 	}				
 
+    /**
+     *  In this method we'll add the borders to the table.
+     */
 	private  void addBorders(Tbl table) {
         table.setTblPr(new TblPr());
         CTBorder border = new CTBorder();
@@ -172,18 +206,7 @@ public class DocxServlet extends HttpServlet {
         borders.setInsideH(border);
         borders.setInsideV(border);
         table.getTblPr().setTblBorders(borders);
-    }
- 
-    private Tbl createTableWithContent() {
-        Tbl table = factory.createTbl();
-        Tr tableRow = factory.createTr();
- 
-        addTableCell(tableRow, "Field 1");
-        addTableCell(tableRow, "Field 2");
- 
-        table.getContent().add(tableRow);
-        return table;
-    }
+    }	 
  
     private void addTableCell(Tr tableRow, String content) {
         Tc tableCell = factory.createTc();
@@ -193,6 +216,36 @@ public class DocxServlet extends HttpServlet {
         tableRow.getContent().add(tableCell);
     }
     
+    /**
+     *  In this method we create a cell and add the given content to it.
+     *  If the given width is greater than 0, we set the width on the cell.
+     *  Finally, we add the cell to the row.
+     */
+    private void addTableCellWithWidth(Tr row, String content, int width){
+        Tc tableCell = factory.createTc();
+        tableCell.getContent().add(
+            wordMLPackage.getMainDocumentPart().createParagraphOfText(
+                content));
+ 
+        if (width > 0) {
+            setCellWidth(tableCell, width);
+        }
+        row.getContent().add(tableCell);
+    }
+ 
+    /**
+     *  In this method we create a table cell properties object and a table width
+     *  object. We set the given width on the width object and then add it to
+     *  the properties object. Finally we set the properties on the table cell.
+     */
+    private void setCellWidth(Tc tableCell, int width) {
+        TcPr tableCellProperties = new TcPr();
+        TblWidth tableWidth = new TblWidth();
+        tableWidth.setW(BigInteger.valueOf(width));
+        tableCellProperties.setTcW(tableWidth);
+        tableCell.setTcPr(tableCellProperties);
+    }
+     
     private WordprocessingMLPackage  wordMLPackage;
     private ObjectFactory factory;    
 }
