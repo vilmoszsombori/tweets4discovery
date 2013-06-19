@@ -33,12 +33,18 @@
 			if ( $( '#queryString' ).val() == null || $( '#queryString' ).val().trim() == "" ) {
 				$( "#getJsonButton" ).attr('disabled','disabled');
 				$( "#getDocxButton" ).attr('disabled','disabled');
+				$( "#queryString" ).css({background: 'red'});
 			} else {
 				$( "#getJsonButton" ).removeAttr('disabled');
 				$( "#getDocxButton" ).removeAttr('disabled');
+				$( "#queryString" ).css({background: 'none'});
 			}
 		});
 		
+		$(document).ready(function() {
+			$( "#spinnerDiv" ).hide();			
+			$( "#errorDiv" ).hide();			
+		});
 	});
 </script>
 <title>Twitter 4 Discovery</title>
@@ -58,10 +64,20 @@
 		</p>
 		<hr size="1" />
 	</div>
+	<div id="spinnerDiv">
+		<h2>Please wait</h2>
+		<img src="spinner_red.gif"/>	
+		<hr size="1" />
+	</div>
 	<div id="resultsDiv">
 		<h2>Results</h2>
 		<table id="resultsTable"><tbody></tbody></table>
 		<a id="docxLink"></a>
+		<hr size="1" />
+	</div>		
+	<div id="errorDiv">
+		<h2>Error</h2>
+		<p id="error"></p>
 		<hr size="1" />
 	</div>		
 </html>
