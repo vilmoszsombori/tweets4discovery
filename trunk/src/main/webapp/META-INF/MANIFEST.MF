@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Class-Path: log4j-1.2.17.jar commons-configuration-1.9.jar commons-lan
+ g-2.6.jar commons-logging-1.1.1.jar twitter4j-core-3.0.3.jar jstl-1.2
+ .jar docx4j-2.7.1.jar commons-codec-1.3.jar xmlgraphics-commons-1.4.j
+ ar commons-io-1.3.1.jar fop-1.0.jar avalon-framework-api-4.3.1.jar av
+ alon-framework-impl-4.3.1.jar xalan-2.7.1.jar serializer-2.7.1.jar xm
+ l-apis-1.3.04.jar wmf2svg-0.9.0.jar poi-scratchpad-3.8-beta4.jar poi-
+ 3.8-beta4.jar antlr-runtime-3.3.jar stringtemplate-3.2.1.jar antlr-2.
+ 7.7.jar gson-2.2.2.jar
+
