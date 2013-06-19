@@ -30,10 +30,13 @@
 		$( "#since" ).datepicker("setDate", day);
 
 		$( '#queryString' ).change(function() {
-			if ( $( '#queryString' ).val() == null || $( '#queryString' ).val().trim() == "" )
-				$( "#directResultsButton" ).attr('disabled','disabled');
-			else
-				$( "#directResultsButton" ).removeAttr('disabled');
+			if ( $( '#queryString' ).val() == null || $( '#queryString' ).val().trim() == "" ) {
+				$( "#getJsonButton" ).attr('disabled','disabled');
+				$( "#getDocxButton" ).attr('disabled','disabled');
+			} else {
+				$( "#getJsonButton" ).removeAttr('disabled');
+				$( "#getDocxButton" ).removeAttr('disabled');
+			}
 		});
 		
 	});
@@ -49,7 +52,8 @@
 			Twitter query: 	<input type="text" name="query" id="queryString" value="@discovery"/>
 			Since: 			<input type="text" id="since" size="12" />
 			Until: 			<input type="text" id="until" size="12" />			
-			<button id="directResultsButton" onclick="doQuery();">HTML results</button>
+			<button id="getJsonButton" onclick="getJson();">HTML results</button>
+			<button id="getDocxButton" onclick="getDocx();">DOCX results</button>
 			<!-- <input type="submit" name="submit" id="submitButton" value="JSON results" accept="" /> -->
 		</p>
 		<hr size="1" />
@@ -57,6 +61,7 @@
 	<div id="resultsDiv">
 		<h2>Results</h2>
 		<table id="resultsTable"><tbody></tbody></table>
+		<a id="docxLink"></a>
 		<hr size="1" />
 	</div>		
 </html>

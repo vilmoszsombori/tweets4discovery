@@ -1,4 +1,4 @@
-function doQuery() {
+function getJson() {
 	$.ajax({
 		url : 'json',
 		data : {
@@ -10,7 +10,8 @@ function doQuery() {
 		async : false,
 		success : function(response) {
 			if ( typeof response.tweets !== 'undefined' ) {
-				$("#resultsTable > tbody").html("");					
+				$("#resultsTable > tbody").html("");
+				$("#docxLink").html("");
 				for ( var i in response.tweets) {
 					try {
 						$("#resultsTable > tbody")
@@ -25,6 +26,32 @@ function doQuery() {
 						console.error(err.message);
 					}
 				}
+			} else if ( typeof response.exception !== 'undefined' ) {
+				console.error(response.exception);				
+			}			
+		},
+		error: function() {
+			console.error('AJAX error');
+		}			
+	});		
+}
+
+function getDocx() {
+	$.ajax({
+		url : 'docx',
+		data : {
+			query : $("#queryString").val(),
+			since : $("#since").val(),
+			until : $("#until").val()
+		},			
+		type : "GET",
+		async : false,
+		success : function(response) {
+			if ( typeof response.docx !== 'undefined' ) {
+				console.log(response.docx);
+				$("#docxLink").prop("href", "download/" + response.docx);
+				$("#docxLink").html("Download DOCX");
+				$("#resultsTable > tbody").html("");					
 			} else if ( typeof response.exception !== 'undefined' ) {
 				console.error(response.exception);				
 			}			
