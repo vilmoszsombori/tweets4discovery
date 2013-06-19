@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar" sourcepath="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-configuration/commons-configuration/1.9/commons-configuration-1.9.jar" sourcepath="M2_REPO/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" sourcepath="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/twitter4j/twitter4j-core/3.0.3/twitter4j-core-3.0.3.jar" sourcepath="M2_REPO/org/twitter4j/twitter4j-core/3.0.3/twitter4j-core-3.0.3-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/org/twitter4j/twitter4j-core/3.0.3/twitter4j-core-3.0.3-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/tomcat-servlet-api/7.0.39/tomcat-servlet-api-7.0.39.jar" sourcepath="M2_REPO/org/apache/tomcat/tomcat-servlet-api/7.0.39/tomcat-servlet-api-7.0.39-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jstl/jstl/1.2/jstl-1.2.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/docx4j/docx4j/2.7.1/docx4j-2.7.1.jar" sourcepath="M2_REPO/org/docx4j/docx4j/2.7.1/docx4j-2.7.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/org/docx4j/docx4j/2.7.1/docx4j-2.7.1-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" sourcepath="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/xmlgraphics/xmlgraphics-commons/1.4/xmlgraphics-commons-1.4.jar" sourcepath="M2_REPO/org/apache/xmlgraphics/xmlgraphics-commons/1.4/xmlgraphics-commons-1.4-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/org/apache/xmlgraphics/xmlgraphics-commons/1.4/xmlgraphics-commons-1.4-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar" sourcepath="M2_REPO/commons-io/commons-io/1.3.1/commons-io-1.3.1-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/xmlgraphics/fop/1.0/fop-1.0.jar" sourcepath="M2_REPO/org/apache/xmlgraphics/fop/1.0/fop-1.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/org/apache/xmlgraphics/fop/1.0/fop-1.0-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/avalon/framework/avalon-framework-api/4.3.1/avalon-framework-api-4.3.1.jar" sourcepath="M2_REPO/org/apache/avalon/framework/avalon-framework-api/4.3.1/avalon-framework-api-4.3.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/org/apache/avalon/framework/avalon-framework-api/4.3.1/avalon-framework-api-4.3.1-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/avalon/framework/avalon-framework-impl/4.3.1/avalon-framework-impl-4.3.1.jar" sourcepath="M2_REPO/org/apache/avalon/framework/avalon-framework-impl/4.3.1/avalon-framework-impl-4.3.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/org/apache/avalon/framework/avalon-framework-impl/4.3.1/avalon-framework-impl-4.3.1-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/xalan/xalan/2.7.1/xalan-2.7.1.jar" sourcepath="M2_REPO/xalan/xalan/2.7.1/xalan-2.7.1-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/xalan/serializer/2.7.1/serializer-2.7.1.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.3.04/xml-apis-1.3.04.jar" sourcepath="M2_REPO/xml-apis/xml-apis/1.3.04/xml-apis-1.3.04-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/net/arnx/wmf2svg/0.9.0/wmf2svg-0.9.0.jar" sourcepath="M2_REPO/net/arnx/wmf2svg/0.9.0/wmf2svg-0.9.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/net/arnx/wmf2svg/0.9.0/wmf2svg-0.9.0-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/poi/poi-scratchpad/3.8-beta4/poi-scratchpad-3.8-beta4.jar" sourcepath="M2_REPO/org/apache/poi/poi-scratchpad/3.8-beta4/poi-scratchpad-3.8-beta4-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/poi/poi/3.8-beta4/poi-3.8-beta4.jar" sourcepath="M2_REPO/org/apache/poi/poi/3.8-beta4/poi-3.8-beta4-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3.jar" sourcepath="M2_REPO/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar" sourcepath="M2_REPO/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1-sources.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar">
+    <attributes>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/vilmos.zsombori/.m2/repository/com/google/code/gson/gson/2.2.2/gson-2.2.2-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
+    </attributes>
+  </classpathentry>
+</classpath>
