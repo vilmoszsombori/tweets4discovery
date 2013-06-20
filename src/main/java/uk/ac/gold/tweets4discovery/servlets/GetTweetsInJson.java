@@ -84,13 +84,13 @@ public class GetTweetsInJson extends HttpServlet {
 				jsonResp.put("tweets", _tweets);
 				status = "successful";
 			} else {
-				throw new Exception("No results for query [" + queryString + "].");
+				throw new Exception("Sorry, there are no tweets matching your search [" + queryString + "] between those dates (from [" + since + "] to [" + until + "]).");
 			}
 		} catch (TwitterException e) {
-			jsonResp.put("exception", "Twitter exception. " + e.getMessage());
+			jsonResp.put("exception", e.getMessage());
 			e.printStackTrace();
 		} catch ( Exception e ) {
-			jsonResp.put("exception", "General excpetion. " + e.getMessage());
+			jsonResp.put("exception", e.getMessage());
 			request.setAttribute ("javax.servlet.jsp.jspException", e);
 			e.printStackTrace();
 		} finally {

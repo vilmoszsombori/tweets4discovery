@@ -16,7 +16,7 @@
 <script type="text/javascript" src="tweets4discovery.js"></script>
 <script>
 	$(function() {
-		$( "#since" ).datepicker({ minDate: -20, maxDate: 0, dateFormat: "yy-mm-dd"});
+		$( "#since" ).datepicker({ minDate: -7, maxDate: 0, dateFormat: "yy-mm-dd"});
 		$( "#until" ).datepicker({ minDate: -1, maxDate: 0, dateFormat: "yy-mm-dd"});
 
 		$( '#since' ).change(function() { 
@@ -52,7 +52,7 @@
 	<div id="queryDiv">
 		<!-- h2>Query</h2 -->
 		<!-- <form name="form_sessions" action="json" method="GET"> -->
-		<p><img alt="Discovery Channel" src="discovery.png"/></p>
+		<p><img alt="Discovery Channel" src="http://www.discoveryuk.com/localresources/interestgroups/images/global/discovery-logo.png"/></p>
 		<p>
 			Search Twitter:	<input type="text" name="query" id="queryString" value="@discovery"/>
 			From: 			<input type="text" id="since" size="12" />
@@ -65,7 +65,9 @@
 	</div>
 	<div id="spinnerDiv">
 		<h2>Just a few seconds...</h2>
-		<img src="spinner_red.gif"/>	
+		<div id="imageDiv">
+			<img class="centred" src="spinner_blue.gif"/>
+		</div>	
 		<hr size="1" />
 	</div>
 	<div id="resultsDiv">

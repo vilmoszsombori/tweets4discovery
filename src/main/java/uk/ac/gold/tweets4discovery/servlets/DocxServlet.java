@@ -15,18 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.docx4j.jaxb.Context;
+import org.docx4j.model.structure.SectionWrapper;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.wml.CTBorder;
-import org.docx4j.wml.ObjectFactory;
-import org.docx4j.wml.STBorder;
-import org.docx4j.wml.Tbl;
-import org.docx4j.wml.TblBorders;
-import org.docx4j.wml.TblPr;
-import org.docx4j.wml.TblWidth;
-import org.docx4j.wml.Tc;
-import org.docx4j.wml.TcPr;
-import org.docx4j.wml.Tr;
+import org.docx4j.openpackaging.parts.WordprocessingML.FooterPart;
+import org.docx4j.relationships.Relationship;
+import org.docx4j.wml.*;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -93,9 +88,13 @@ public class DocxServlet extends HttpServlet {
         	
 			factory = Context.getWmlObjectFactory();
 			wordMLPackage = WordprocessingMLPackage.createPackage();
+	        
+			// add credits
+			Relationship relationship = createFooterPart();
+	        createFooterReference(relationship);			
 						
 			wordMLPackage.getMainDocumentPart().addStyledParagraphOfText("Title", "Tweets 4 Discovery");
-			wordMLPackage.getMainDocumentPart().addStyledParagraphOfText("Subtitle", "by Vilmos and Michel");
+			//wordMLPackage.getMainDocumentPart().addStyledParagraphOfText("Subtitle", "by Vilmos and Michel");
 			/*
 			P p = factory.createP();
 			R r = factory.createR();
@@ -116,15 +115,13 @@ public class DocxServlet extends HttpServlet {
 			text.setValue("Until: " + until);
 			r.getContent().add(text);
 			*/
-									
-			wordMLPackage.getMainDocumentPart().addParagraphOfText("Search term: " + queryString);
-			wordMLPackage.getMainDocumentPart().addParagraphOfText("From: " + since);
-			wordMLPackage.getMainDocumentPart().addParagraphOfText("To: " + until);
 			
+			addQueryParams(queryString, since, until);
+						
 			//r.getContent().add(p);
 			//wordMLPackage.getMainDocumentPart().addObject(r);
 						
-	        Tbl table = factory.createTbl();
+			Tbl table = factory.createTbl();
 						
 			Twitter twitter = new TwitterFactory().getInstance();
 			Query query = new Query(queryString);
@@ -156,13 +153,13 @@ public class DocxServlet extends HttpServlet {
 			status = "successful";
 			
 		} catch (TwitterException e) {
-			jsonResp.put("exception", "TwitterException: " + e.getMessage());
+			jsonResp.put("exception", e.getMessage());
 			e.printStackTrace();
 		} catch (Docx4JException e) {
-			jsonResp.put("exception", "Docx4JException: " + e.getMessage());
+			jsonResp.put("exception", e.getMessage());
 			e.printStackTrace();
 		} catch ( Exception e ) {
-			jsonResp.put("exception", "General excpetion. " + e.getMessage());
+			jsonResp.put("exception", e.getMessage());
 			request.setAttribute ("javax.servlet.jsp.jspException", e);
 			e.printStackTrace();
 		} finally {
@@ -248,6 +245,102 @@ public class DocxServlet extends HttpServlet {
         tableWidth.setW(BigInteger.valueOf(width));
         tableCellProperties.setTcW(tableWidth);
         tableCell.setTcPr(tableCellProperties);
+    }
+    
+    /**
+     *  This method creates a footer part and set the package on it. Then we add some
+     *  text and add the footer part to the package. Finally we return the
+     *  corresponding relationship.
+     *
+     *  @return
+     *  @throws InvalidFormatException
+     */
+    private Relationship createFooterPart() throws InvalidFormatException {
+        FooterPart footerPart = new FooterPart();
+        footerPart.setPackage(wordMLPackage);
+ 
+        footerPart.setJaxbElement(createFooter("by Vilmos Zsombori and Michael Frantzis"));
+ 
+        return wordMLPackage.getMainDocumentPart().addTargetPart(footerPart);
+    }
+ 
+    /**
+     *  First we create a footer, a paragraph, a run and a text. We add the given
+     *  given content to the text and add that to the run. The run is then added to
+     *  the paragraph, which is in turn added to the footer. Finally we return the
+     *  footer.
+     *
+     *  @param content
+     *  @return
+     */
+    private Ftr createFooter(String content) {
+        Ftr footer = factory.createFtr();
+        P paragraph = factory.createP();
+        R run = factory.createR();
+        Text text = new Text();
+        text.setValue(content);
+        run.getContent().add(text);
+        paragraph.getContent().add(run);
+        footer.getContent().add(paragraph);
+        return footer;
+    }
+ 
+    /**
+     *  First we retrieve the document sections from the package. As we want to add
+     *  a footer, we get the last section and take the section properties from it.
+     *  The section is always present, but it might not have properties, so we check
+     *  if they exist to see if we should create them. If they need to be created,
+     *  we do and add them to the main document part and the section.
+     *  Then we create a reference to the footer, give it the id of the relationship,
+     *  set the type to header/footer reference and add it to the collection of
+     *  references to headers and footers in the section properties.
+     *
+     * @param relationship
+     */
+    private void createFooterReference(Relationship relationship) {
+        List<SectionWrapper> sections =
+            wordMLPackage.getDocumentModel().getSections();
+ 
+        SectPr sectionProperties = sections.get(sections.size() - 1).getSectPr();
+        // There is always a section wrapper, but it might not contain a sectPr
+        if (sectionProperties==null ) {
+            sectionProperties = factory.createSectPr();
+            wordMLPackage.getMainDocumentPart().addObject(sectionProperties);
+            sections.get(sections.size() - 1).setSectPr(sectionProperties);
+        }
+ 
+        FooterReference footerReference = factory.createFooterReference();
+        footerReference.setId(relationship.getId());
+        footerReference.setType(HdrFtrRef.DEFAULT);
+        sectionProperties.getEGHdrFtrReferences().add(footerReference);
+    }
+    
+    private void addQueryParams(String query, String since, String until) {
+	    /*
+		wordMLPackage.getMainDocumentPart().addParagraphOfText("Search term: " + queryString);
+		wordMLPackage.getMainDocumentPart().addParagraphOfText("From: " + since);
+		wordMLPackage.getMainDocumentPart().addParagraphOfText("To: " + until);
+		*/
+    	
+	    Tbl table = factory.createTbl();	    
+	    Tr tr;
+	    
+	    tr = factory.createTr();	 
+	    addTableCell(tr, "Query string: ");
+	    addTableCell(tr, query);	 
+	    table.getContent().add(tr);
+
+	    tr = factory.createTr();	 
+	    addTableCell(tr, "From: ");
+	    addTableCell(tr, since);	 
+	    table.getContent().add(tr);
+
+	    tr = factory.createTr();	 
+	    addTableCell(tr, "To: ");
+	    addTableCell(tr, until);	 
+	    table.getContent().add(tr);
+	    
+	    wordMLPackage.getMainDocumentPart().addObject(table);		    	
     }
      
     private WordprocessingMLPackage  wordMLPackage;
