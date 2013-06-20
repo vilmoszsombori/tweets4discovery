@@ -1,4 +1,43 @@
+body {
+	background-color: #4f4f4f;
+	color: #ffffff;
+}
+
+h2 {
+	color: #86D2EC;
+}
+
+img.centred {
+	display: block;
+	margin-left: auto;
+	margin-right: auto 
+}
+
 #creditsDiv {
 	font-size: x-small;
 	clear: both;	
+}
+
+#imageDiv {
+	width: 740px;
+}
+
+a:link { 
+	color: #ffffff; 
+	text-decoration: underline; 
+}
+
+a:visited { 
+	color: #ffffff; 
+	text-decoration: underline; 
+}
+
+a:hover {
+	color: #86D2EC; 
+	text-decoration: underline; 
+}
+
+a:active { 
+	color: #86D2EC; 
+	text-decoration: none; 
 }
