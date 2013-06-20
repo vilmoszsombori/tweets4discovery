@@ -19,7 +19,6 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.CTBorder;
 import org.docx4j.wml.ObjectFactory;
-import org.docx4j.wml.R;
 import org.docx4j.wml.STBorder;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.TblBorders;
@@ -27,9 +26,7 @@ import org.docx4j.wml.TblPr;
 import org.docx4j.wml.TblWidth;
 import org.docx4j.wml.Tc;
 import org.docx4j.wml.TcPr;
-import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
-import org.docx4j.wml.P;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -49,6 +46,8 @@ public class DocxServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 5177529122176911436L;
 	private static Logger LOG = Logger.getLogger(DocxServlet.class);
+	private static int fileCounter = 0;
+	private static final String FILE_NAME = "Tweets";
 	private Gson gson = new Gson();
 
 	/**
@@ -118,9 +117,9 @@ public class DocxServlet extends HttpServlet {
 			r.getContent().add(text);
 			*/
 									
-			wordMLPackage.getMainDocumentPart().addParagraphOfText("Query: " + queryString);
-			wordMLPackage.getMainDocumentPart().addParagraphOfText("Since: " + since);
-			wordMLPackage.getMainDocumentPart().addParagraphOfText("Until: " + until);
+			wordMLPackage.getMainDocumentPart().addParagraphOfText("Search term: " + queryString);
+			wordMLPackage.getMainDocumentPart().addParagraphOfText("From: " + since);
+			wordMLPackage.getMainDocumentPart().addParagraphOfText("To: " + until);
 			
 			//r.getContent().add(p);
 			//wordMLPackage.getMainDocumentPart().addObject(r);
@@ -150,9 +149,10 @@ public class DocxServlet extends HttpServlet {
 			addBorders(table);
 			wordMLPackage.getMainDocumentPart().addObject(table);
 			
-			wordMLPackage.save(new java.io.File(rootPath + "/HelloWord2.docx"));
+			String file = getFileName();
+			wordMLPackage.save(new java.io.File(rootPath + "/" + file));
 			
-			jsonResp.put("docx", "HelloWord2.docx");			
+			jsonResp.put("docx", file);			
 			status = "successful";
 			
 		} catch (TwitterException e) {
@@ -172,6 +172,10 @@ public class DocxServlet extends HttpServlet {
 			response.getWriter().write(gson.toJson(jsonResp));			
 		}		
 			
+	}
+	
+	private synchronized String getFileName() {
+		return FILE_NAME + (fileCounter++) + ".docx";
 	}
 
 	/**
