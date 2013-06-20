@@ -33,17 +33,16 @@
 			if ( $( '#queryString' ).val() == null || $( '#queryString' ).val().trim() == "" ) {
 				$( "#getJsonButton" ).attr('disabled','disabled');
 				$( "#getDocxButton" ).attr('disabled','disabled');
-				$( "#queryString" ).css({background: 'red'});
+				//$( "#queryString" ).css({background: 'red'});
 			} else {
 				$( "#getJsonButton" ).removeAttr('disabled');
 				$( "#getDocxButton" ).removeAttr('disabled');
-				$( "#queryString" ).css({background: 'none'});
+				//$( "#queryString" ).css({background: 'none'});
 			}
 		});
 		
 		$(document).ready(function() {
-			$( "#spinnerDiv" ).hide();			
-			$( "#errorDiv" ).hide();			
+			setDisplayTemplate(0);
 		});
 	});
 </script>
@@ -55,17 +54,17 @@
 		<!-- <form name="form_sessions" action="json" method="GET"> -->
 		<p><img alt="Discovery Channel" src="discovery.png"/></p>
 		<p>
-			Twitter query: 	<input type="text" name="query" id="queryString" value="@discovery"/>
-			Since: 			<input type="text" id="since" size="12" />
-			Until: 			<input type="text" id="until" size="12" />			
-			<button id="getJsonButton" onclick="getJson();">HTML results</button>
-			<button id="getDocxButton" onclick="getDocx();">DOCX results</button>
+			Search Twitter:	<input type="text" name="query" id="queryString" value="@discovery"/>
+			From: 			<input type="text" id="since" size="12" />
+			To: 			<input type="text" id="until" size="12" />			
+			<button id="getJsonButton" onclick="getJson();">Text results</button>
+			<button id="getDocxButton" onclick="getDocx();">Word document</button>
 			<!-- <input type="submit" name="submit" id="submitButton" value="JSON results" accept="" /> -->
 		</p>
 		<hr size="1" />
 	</div>
 	<div id="spinnerDiv">
-		<h2>Please wait</h2>
+		<h2>Just a few seconds...</h2>
 		<img src="spinner_red.gif"/>	
 		<hr size="1" />
 	</div>
@@ -79,5 +78,8 @@
 		<h2>Error</h2>
 		<p id="error"></p>
 		<hr size="1" />
+	</div>		
+	<div id="creditsDiv">
+		by <i>Vilmos Zsombori</i> and <i>Michael Frantzis</i>
 	</div>		
 </html>
