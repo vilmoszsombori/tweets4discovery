@@ -76,7 +76,7 @@ public class SearchServlet extends HttpServlet {
 		Map<String, Object> jsonResp = new HashMap<String, Object>();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		
+			
 		String queryString = request.getParameter("query");
 		String since = request.getParameter("since");
 		String until = request.getParameter("until");
