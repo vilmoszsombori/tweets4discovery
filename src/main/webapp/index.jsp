@@ -31,13 +31,15 @@
 
 		$( '#queryString' ).change(function() {
 			if ( $( '#queryString' ).val() == null || $( '#queryString' ).val().trim() == "" ) {
-				$( "#getJsonButton" ).attr('disabled','disabled');
+				$( "#searchButton" ).attr('disabled','disabled');
+				/* $( "#getJsonButton" ).attr('disabled','disabled');
 				$( "#getDocxButton" ).attr('disabled','disabled');
-				//$( "#queryString" ).css({background: 'red'});
+				$( "#queryString" ).css({background: 'red'}); */
 			} else {
-				$( "#getJsonButton" ).removeAttr('disabled');
+				$( "#searchButton" ).removeAttr('disabled');
+				/* $( "#getJsonButton" ).removeAttr('disabled');
 				$( "#getDocxButton" ).removeAttr('disabled');
-				//$( "#queryString" ).css({background: 'none'});
+				$( "#queryString" ).css({background: 'none'}); */
 			}
 		});
 		
@@ -57,8 +59,9 @@
 			Search Twitter:	<input type="text" name="query" id="queryString" value="@discovery"/>
 			From: 			<input type="text" id="since" size="12" />
 			To: 			<input type="text" id="until" size="12" />			
-			<button id="getJsonButton" onclick="getJson();">Text results</button>
-			<button id="getDocxButton" onclick="getDocx();">Word document</button>
+			<button id="searchButton" onclick="doSearch();">Search</button>
+			<!-- button id="getJsonButton" onclick="getJson();">Text results</button -->
+			<!--  button id="getDocxButton" onclick="getDocx();">Word document</button -->
 			<!-- <input type="submit" name="submit" id="submitButton" value="JSON results" accept="" /> -->
 		</p>
 		<hr size="1" />
@@ -72,8 +75,8 @@
 	</div>
 	<div id="resultsDiv">
 		<h2>Results</h2>
+		<p><a id="docxLink"></a></p>
 		<table id="resultsTable"><tbody></tbody></table>
-		<a id="docxLink"></a>
 		<hr size="1" />
 	</div>		
 	<div id="errorDiv">

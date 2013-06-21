@@ -28,16 +28,16 @@ import com.google.gson.Gson;
  * Servlet implementation class SessionsInfo
  */
 @WebServlet("/json")
-public class GetTweetsInJson extends HttpServlet {       
+public class JsonServlet extends HttpServlet {       
 	
-	private static Logger LOG = Logger.getLogger(GetTweetsInJson.class);
+	private static Logger LOG = Logger.getLogger(JsonServlet.class);
 	private static final long serialVersionUID = -702440476935775080L;
 	private Gson gson = new Gson();
 
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public GetTweetsInJson() {
+    public JsonServlet() {
         super();
     }
 
