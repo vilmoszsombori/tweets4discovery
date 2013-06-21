@@ -85,6 +85,7 @@
 		<hr size="1" />
 	</div>		
 	<div id="creditsDiv">
+		<!-- Version: <c:out value="${requestScope['VERSION']}" /> | <c:out value="${requestScope['REVISION']}" /> | <c:out value="${requestScope['DATE']}" /> | -->
 		by <i>Vilmos Zsombori</i> and <i>Michael Frantzis</i>
 	</div>		
 </html>
