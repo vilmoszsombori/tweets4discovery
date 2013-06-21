@@ -6,10 +6,10 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +22,23 @@ import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.FooterPart;
 import org.docx4j.relationships.Relationship;
-import org.docx4j.wml.*;
+import org.docx4j.wml.CTBorder;
+import org.docx4j.wml.FooterReference;
+import org.docx4j.wml.Ftr;
+import org.docx4j.wml.HdrFtrRef;
+import org.docx4j.wml.ObjectFactory;
+import org.docx4j.wml.P;
+import org.docx4j.wml.R;
+import org.docx4j.wml.STBorder;
+import org.docx4j.wml.SectPr;
+import org.docx4j.wml.Tbl;
+import org.docx4j.wml.TblBorders;
+import org.docx4j.wml.TblPr;
+import org.docx4j.wml.TblWidth;
+import org.docx4j.wml.Tc;
+import org.docx4j.wml.TcPr;
+import org.docx4j.wml.Text;
+import org.docx4j.wml.Tr;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -34,22 +50,21 @@ import twitter4j.TwitterFactory;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class DocxServlet
- * @param <P>
+ * Servlet implementation class SearchServlet
  */
-@WebServlet("/docx")
-public class DocxServlet extends HttpServlet {       
-	
-	private static final long serialVersionUID = 5177529122176911436L;
-	private static Logger LOG = Logger.getLogger(DocxServlet.class);
+//@WebServlet("/search")
+public class SearchServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -657016811446300443L;  	
+	private static Logger LOG = Logger.getLogger(SearchServlet.class);
 	private static int fileCounter = 0;
-	private static final String FILE_NAME = "TweetsDoc";
+	private static final String FILE_NAME = "Tweets";
 	private Gson gson = new Gson();
 
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public DocxServlet() {
+    public SearchServlet() {
         super();
     }
 
@@ -129,10 +144,15 @@ public class DocxServlet extends HttpServlet {
 			query.setSince(since);
 			query.setUntil(until);
 			QueryResult result;
+			List<Status> _tweets = new Vector<Status>();			
 
 			do {
 		        result = twitter.search(query);
 				List<Status> tweets = result.getTweets();
+				
+				// accumulate results for the JSON response 
+				_tweets.addAll(tweets);
+				
 				for (Status tweet : tweets) {
 			        Tr tr = factory.createTr();				   	 			        
 			        addTableCell(tr, "@" + tweet.getUser().getScreenName());
@@ -143,16 +163,24 @@ public class DocxServlet extends HttpServlet {
 			        table.getContent().add(tr);			
 				}				
 			} while ((query = result.nextQuery()) != null);
-
-			addBorders(table);
-			wordMLPackage.getMainDocumentPart().addObject(table);
 			
-			String file = getFileName();
-			wordMLPackage.save(new java.io.File(rootPath + "/" + file));
-			
-			jsonResp.put("docx", file);			
-			status = "successful";
-			
+			if ( !_tweets.isEmpty() ) {
+				// JSON results
+				jsonResp.put("tweets", _tweets);
+				status = "successful";
+				
+				// DOCX results
+				addBorders(table);
+				wordMLPackage.getMainDocumentPart().addObject(table);
+				
+				String file = getFileName();
+				wordMLPackage.save(new java.io.File(rootPath + "/" + file));
+				
+				jsonResp.put("docx", file);							
+			} else {
+				throw new Exception("Sorry, there are no tweets matching your search [" + queryString + "] between those dates (from [" + since + "] to [" + until + "]).");
+			}
+						
 		} catch (TwitterException e) {
 			jsonResp.put("exception", e.getMessage());
 			e.printStackTrace();
@@ -168,8 +196,7 @@ public class DocxServlet extends HttpServlet {
 			LOG.info("Response time: " + (System.currentTimeMillis() - startTime) + "ms.");
 			LOG.info("Status: " + status);
 			response.getWriter().write(gson.toJson(jsonResp));			
-		}		
-			
+		}			
 	}
 	
 	private synchronized String getFileName() {
@@ -345,5 +372,5 @@ public class DocxServlet extends HttpServlet {
     }
      
     private WordprocessingMLPackage  wordMLPackage;
-    private ObjectFactory factory;    
+    private ObjectFactory factory;
 }

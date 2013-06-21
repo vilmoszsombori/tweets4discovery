@@ -41,3 +41,16 @@ a:active {
 	color: #86D2EC; 
 	text-decoration: none; 
 }
+
+table {
+	border-collapse: collapse;
+}
+
+table, td, th {
+	border:1px solid #86D2EC;
+}
+
+th {
+	background-color: #86D2EC;
+	color: white;
+}

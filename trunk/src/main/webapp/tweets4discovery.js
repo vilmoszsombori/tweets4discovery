@@ -1,3 +1,48 @@
+function doSearch() {
+	setDisplayTemplate(2);
+	$.ajax({
+		url : 'search',
+		data : {
+			query : $("#queryString").val(),
+			since : $("#since").val(),
+			until : $("#until").val()
+		},
+		type : "GET",
+		async : true,
+		success : function(response) {
+			if (typeof response.docx !== 'undefined') {
+				console.log(response.docx);
+				$("#docxLink").prop("href", "download/" + response.docx);
+				$("#docxLink").html("Download tweets in a Word document");
+				$("#resultsTable > tbody").html("");
+				for ( var i in response.tweets) {
+					$("#resultsTable > tbody").append(
+							'<tr id="' + response.tweets[i].id + '">'
+									+ '<td><b>@' + response.tweets[i].user.screenName + '</b></td>'
+									+ '<td>' + response.tweets[i].user.name + '</td>'
+									+ '<td>' + response.tweets[i].text + '</td>'
+									+ '<td>' + response.tweets[i].createdAt + '</td>'
+							+ '</tr>');
+				}				
+				setDisplayTemplate(3);
+			} else if (typeof response.exception !== 'undefined') {
+				$("#error").html(response.exception);
+				setDisplayTemplate(1);
+				//console.error(response.exception);				
+			} else {
+				$("#error").html("AJAX error");
+				setDisplayTemplate(1);
+				//console.error('AJAX error');				
+			}
+		},
+		error : function() {
+			$("#error").html("AJAX error");
+			setDisplayTemplate(1);
+			//console.error('AJAX error');
+		}
+	});
+}
+
 function getJson() {
 	setDisplayTemplate(2);
 	$.ajax({
