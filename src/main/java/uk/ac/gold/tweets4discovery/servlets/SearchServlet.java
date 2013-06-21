@@ -96,7 +96,7 @@ public class SearchServlet extends HttpServlet {
         	String rootPath = System.getProperty("tweets4discovery.rootPath") + "download";
         	LOG.info("The DOCX download folder is [" + rootPath + "].");
         	
-        	//create "logs" folder if necessary
+        	//create "download" folder if necessary
         	File directory = new File(rootPath);
         	if (directory.isDirectory() == false) {
         		directory.mkdir();
@@ -214,6 +214,18 @@ public class SearchServlet extends HttpServlet {
 		super.init(config);
 		String prefix =  getServletContext().getRealPath("/");
 		System.setProperty("tweets4discovery.rootPath", prefix);
+		
+    	String logsFolder = System.getProperty("tweets4discovery.rootPath") + "logs";
+    	
+    	//create "download" folder if necessary
+    	File directory = new File(logsFolder);
+    	if (directory.isDirectory() == false) {
+    		directory.mkdir();
+    		LOG.info("The logs folder [" + logsFolder + "] has been created.");    		
+    	} else {
+        	LOG.info("The logs folder is [" + logsFolder + "].");    		
+    	}
+		
 	}				
 
     /**

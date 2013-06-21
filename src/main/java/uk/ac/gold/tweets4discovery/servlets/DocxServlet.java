@@ -185,8 +185,10 @@ public class DocxServlet extends HttpServlet {
 	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		/*
 		String prefix =  getServletContext().getRealPath("/");
 		System.setProperty("tweets4discovery.rootPath", prefix);
+		*/
 	}				
 
     /**
