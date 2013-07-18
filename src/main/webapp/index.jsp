@@ -46,6 +46,15 @@
 		$(document).ready(function() {
 			setDisplayTemplate(0);
 		});
+		
+		$(document).ready(function() {
+		    $('#queryString').keydown(function() {
+		        if (event.keyCode == 13) {
+		        	doSearch();
+		            return false;
+		         }
+		    });
+		});		
 	});
 </script>
 <title>Twitter 4 Discovery</title>
@@ -56,7 +65,7 @@
 		<!-- <form name="form_sessions" action="json" method="GET"> -->
 		<p><img alt="Discovery Channel" src="http://www.discoveryuk.com/localresources/interestgroups/images/global/discovery-logo.png"/></p>
 		<p>
-			Search Twitter:	<input type="text" name="query" id="queryString" value="@discovery"/>
+			Search Twitter:	<input type="text" name="query" id="queryString" value="#stormchasers"/>
 			From: 			<input type="text" id="since" size="12" />
 			To: 			<input type="text" id="until" size="12" />			
 			<button id="searchButton" onclick="doSearch();">Search</button>
