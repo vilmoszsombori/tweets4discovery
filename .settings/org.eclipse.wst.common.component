@@ -16,7 +16,7 @@
     <dependent-module archiveName="commons-logging-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module archiveName="twitter4j-core-3.0.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/twitter4j/twitter4j-core/3.0.3/twitter4j-core-3.0.3.jar">
+    <dependent-module archiveName="twitter4j-core-3.0.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/twitter4j/twitter4j-core/3.0.5/twitter4j-core-3.0.5.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/jstl/jstl/1.2/jstl-1.2.jar">
