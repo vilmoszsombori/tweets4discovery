@@ -1,0 +1,1 @@
+The back-end creates a Twitter API call, transforms the result to DOCX and returns it to the front-end.
